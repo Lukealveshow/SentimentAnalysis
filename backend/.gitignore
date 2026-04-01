@@ -1,1 +1,15 @@
-/venv
+# Ambiente virtual
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Dados (opcional, se não quiser subir dataset)
+data/
+
+# Logs
+*.log
+
+# Sistema
+.DS_Store
