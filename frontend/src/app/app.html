@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="card">
+
+    <div class="header">
+      <img src="/assets/search.png" class="icon" />
+      <h1>Análise de Sentimentos</h1>
+    </div>
+
+    <textarea
+      [(ngModel)]="text"
+      placeholder="Digite um texto em português ou inglês..."
+    ></textarea>
+
+    <div class="actions">
+      <button class="analyze" (click)="analyze()">Analisar</button>
+      <button class="clear" (click)="clear()">Limpar</button>
+    </div>
+
+    <div *ngIf="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Processando análise...</p>
+    </div>
+
+    <div *ngIf="result" class="result">
+
+      <div class="result-header">
+        <h3>Resultado</h3>
+        <span class="lang">{{ result.language.toUpperCase() }}</span>
+      </div>
+
+      <div 
+        class="sentiment"
+        [ngClass]="result.sentiment"
+      >
+        {{ result.sentiment }}
+      </div>
+
+      <p class="confidence">
+        Confiança: {{ result.confidence | percent }}
+      </p>
+
+      <div class="bars">
+
+  <div class="bar">
+    <div class="bar-header">
+      <span>Negativo</span>
+      <span>{{ result.probabilities.negative | percent:'1.0-0' }}</span>
+    </div>
+    <div class="progress">
+      <div class="fill negative"
+           [style.width.%]="result.probabilities.negative * 100">
+      </div>
+    </div>
+  </div>
+
+  <div class="bar">
+    <div class="bar-header">
+      <span>Neutro</span>
+      <span>{{ result.probabilities.neutral | percent:'1.0-0' }}</span>
+    </div>
+    <div class="progress">
+      <div class="fill neutral"
+           [style.width.%]="result.probabilities.neutral * 100">
+      </div>
+    </div>
+  </div>
+
+  <div class="bar">
+    <div class="bar-header">
+      <span>Positivo</span>
+      <span>{{ result.probabilities.positive | percent:'1.0-0' }}</span>
+    </div>
+
+    <div 
+      class="bar"
+      [class.highlight]="result.sentiment === 'negative'"
+    >
+
+    <div class="progress">
+      <div class="fill positive"
+           [style.width.%]="result.probabilities.positive * 100">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+    </div>
+  </div>
+</div>
